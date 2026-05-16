@@ -95,7 +95,7 @@ $self->helper(db => sub {
     $auth->get('/dashboard/recent')->to('Dashboard#recent_activity');
     $auth->get('/dashboard/recent')->to('Dashboard#recent_activity');
     # Serve React frontend for any non-API route
-    $r->any('/*path' => { path => '' } => sub ($c) {
+    $r->any('/*whatever' => { whatever => '' } => sub ($c) {
         $c->reply->file($c->app->home->child('public', 'index.html'));
     });
 }
