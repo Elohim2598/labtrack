@@ -14,12 +14,30 @@ sub startup ($self) {
     $self->sessions->default_expiration(28800);
 
     # Initialize database connection helper
-    $self->helper(db => sub {
-        state $db = LabTrack::Model::DB->new(
-            dsn      => $config->{database}{dsn}      // 'dbi:Pg:dbname=labtrack',
-            username => $config->{database}{username}  // 'postgres',
-            password => $config->{database}{password}  // '',
-        );
+$self->helper(db => sub {
+        state $db = do {
+            my ($dsn, $user, $pass);
+
+            if (my $url = $ENV{DATABASE_URL}) {
+                # Parse Railway's DATABASE_URL format:
+                # postgresql://user:pass@host:port/dbname
+                if ($url =~ m{postgresql://([^:]+):([^@]+)@([^:]+):(\d+)/(.+)}) {
+                    $user = $1;
+                    $pass = $2;
+                    $dsn  = "dbi:Pg:dbname=$5;host=$3;port=$4";
+                }
+            }
+
+            $dsn  //= $config->{database}{dsn}      // 'dbi:Pg:dbname=labtrack';
+            $user //= $config->{database}{username}  // 'postgres';
+            $pass //= $config->{database}{password}  // '';
+
+            LabTrack::Model::DB->new(
+                dsn      => $dsn,
+                username => $user,
+                password => $pass,
+            );
+        };
         return $db;
     });
 
