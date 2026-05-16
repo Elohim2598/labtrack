@@ -11,7 +11,8 @@ WORKDIR /app
 
 COPY backend/cpanfile .
 RUN cpanm --installdeps .
-# cache-bust: 2026-05-16
+
+ARG CACHEBUST=1
 COPY backend/ .
 
 EXPOSE 3000
