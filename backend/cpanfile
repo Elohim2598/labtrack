@@ -1,0 +1,12 @@
+requires 'Mojolicious', '9.35';
+requires 'DBI', '1.643';
+requires 'DBD::Pg', '3.16';
+requires 'Crypt::Bcrypt', '0.05';
+requires 'JSON::XS', '4.03';
+requires 'Text::CSV', '2.02';
+requires 'Try::Tiny', '0.31';
+
+on 'test' => sub {
+    requires 'Test::More', '1.302';
+    requires 'Test::Mojo';
+};
