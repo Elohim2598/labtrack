@@ -2,6 +2,6 @@
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "perl script/labtrack daemon -l http://*:$PORT"
+startCommand = "perl script/labtrack daemon -l http://*:${PORT}"
 healthcheckPath = "/api/dashboard/stats"
 restartPolicyType = "ON_FAILURE"
