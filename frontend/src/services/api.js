@@ -4,7 +4,9 @@ import axios from 'axios';
 // withCredentials: true sends the session cookie with every request
 // Without this, the backend would see you as "not logged in" on every call
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: window.location.hostname === 'localhost'
+        ? 'http://localhost:3000/api'
+        : `${window.location.origin}/api`,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
