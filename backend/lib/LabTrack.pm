@@ -59,6 +59,7 @@ $self->helper(db => sub {
     my $r = $self->routes;
 
     # API namespace
+    $r->get('/health' => sub ($c) { $c->render(json => { status => 'ok' }) });
     my $api = $r->under('/api')->to('Auth#check_optional');
 
     # Public routes
