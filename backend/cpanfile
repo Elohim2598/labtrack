@@ -9,4 +9,4 @@ requires 'Try::Tiny';
 on 'test' => sub {
     requires 'Test::More';
     requires 'Test::Mojo';
-};
+};# rebuild 1778990532
