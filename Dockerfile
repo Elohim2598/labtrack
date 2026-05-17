@@ -16,4 +16,4 @@ FROM deps AS app
 COPY backend/ .
 
 EXPOSE 3000
-CMD perl script/labtrack daemon -l http://*:${PORT:-3000}
+CMD ["perl", "script/labtrack"]
